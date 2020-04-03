@@ -77,6 +77,6 @@ function dockdev() {	#Develop Dockerfile
 	local name=$1 ; shift 1;
 	vim Dockerfile && # Open the dockerfile to edit it
 	docker build -t $name . &&	# Build the image and give it the name given as the 1st arg
-	docker run --rm -d -v /tmp/.X11-unix:/tmp/.X11-unix -v /dev/snd:/dev/snd -v /dev/shm:/dev/shm -e DISPLAY=unix:0 --name dev_$name $name $@ # Run it as testcontainer with the same name as the image preceded by dev_
+	docker run --rm -it -v /tmp/.X11-unix:/tmp/.X11-unix -v /dev/snd:/dev/snd -v /dev/shm:/dev/shm -e DISPLAY=unix:0 --name dev_$name $name $@ # Run it as testcontainer with the same name as the image preceded by dev_
 	# The test container has been given X11 and shell support, commands to be ran can be given as extra args
 }
