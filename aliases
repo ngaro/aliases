@@ -30,16 +30,16 @@ alias gdifflog='git log --stat --graph --decorate --all -p'	#log with messages o
 alias gtinylog='git log --oneline --decorate --all --graph --date=short'	#short overview of the git log
 alias gfix='git mergetool --tool=vimdiff'	#fix merge conflicts
 alias gundo='git reset --hard HEAD~'	#remove last commit
-alias gonline='git push --set-upstream origin $(git_current_branch)'	#Copy the branch to the origin (github/gitlab)
+alias gonline='git push --set-upstream origin ${$(git symbolic-ref --quiet HEAD)#refs/heads/}'	#Copy the branch to the origin (github/gitlab)
 ##Change GITHUBUSER and GITLABUSER to use the aliases below
 GITHUBUSER=your_github_username
 GITLABUSER=your_gitlab_username
 alias ghremadd='git remote add github git@github.com:${GITHUBUSER}/${PWD##*/}.git'	#adds a remote called github pointing to the repo on github
 alias glremadd='git remote add gitlab git@gitlab.com:${GITLABUSER}/${PWD##*/}.git'	#adds a remote called gitlab pointing to the repo on gitlab
 alias ghlremadd='git remote add github git@github.com:${GITHUBUSER}/${PWD##*/}.git ; git remote add gitlab git@gitlab.com:${GITLABUSER}/${PWD##*/}.git'	#same as above for both github and gitlab
-alias ghpush='git push --set-upstream github $(git_current_branch)'	#create/update the current branch on github
-alias glpush='git push --set-upstream gitlab $(git_current_branch)'	#create/update the current branch to gitlab
-alias ghlpush='git push --set-upstream github $(git_current_branch) ; git push --set-upstream gitlab $(git_current_branch)'	#same as above for both github and gitlab
+alias ghpush='git push --set-upstream github ${$(git symbolic-ref --quiet HEAD)#refs/heads/}'	#create/update the current branch on github
+alias glpush='git push --set-upstream gitlab ${$(git symbolic-ref --quiet HEAD)#refs/heads/}'	#create/update the current branch to gitlab
+alias ghlpush='git push --set-upstream github ${$(git symbolic-ref --quiet HEAD)#refs/heads/} ; git push --set-upstream gitlab ${$(git symbolic-ref --quiet HEAD)#refs/heads/}'	#same as above for both github and gitlab
 
 #Fileinfo aliases
 alias ls='ls --color=auto'	#list files with colors
