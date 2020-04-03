@@ -25,7 +25,7 @@ alias gcom='git commit -a -m'	#commit with a one-line message (args)
 alias gcomm='git commit -a -v'	#commit
 alias glog='git log --stat --graph --decorate --all'	#log with messages of all branches and how they are related
 alias gdifflog='git log --stat --graph --decorate --all -p'	#log with messages of all branches and how they are related and the changes in each commit
-alias gtinylog='git log --oneline --decorate --all --graph --pretty='\''%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset'\' --date=short'	#short overview of the git log
+alias gtinylog='git log --oneline --decorate --all --graph --date=short'	#short overview of the git log
 alias gfix='git mergetool --tool=vimdiff'	#fix merge conflicts
 alias gundo='git reset --hard HEAD~'	#remove last commit
 alias gonline='git push --set-upstream origin $(git_current_branch)'	#Copy the branch to the origin (github/gitlab)
