@@ -33,7 +33,7 @@ alias gonline='git push --set-upstream origin $(git_current_branch)'	#Copy the b
 alias ls='ls --color=auto'	#list files with colors
 alias la='ls -lA'	#list files with full info
 
-alias become='sudo -i -u'	#beceme another user (1st arg)
+alias become='sudo -i -u'	#become another user (1st arg)
 alias su="sudo -i -u root"	#become root
 alias root='sudo $(fc -ln -1)'	#run the previous command as root
 
