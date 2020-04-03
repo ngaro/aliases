@@ -1,11 +1,11 @@
-#Move 1 to 5 directorys up
+#Move around aliases
+##Move 1 to 5 directorys up
 alias ..='cd ..'	#in zsh this is already available
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
-
-#Change to the previous directory or the one before that and so on
+##Change to the previous directory or the one before that and so on
 alias 1='cd -'
 alias 2='cd -2'
 alias 3='cd -3'
@@ -16,9 +16,11 @@ alias 7='cd -7'
 alias 8='cd -8'
 alias 9='cd -9'
 
+#Search aliases
 alias grep='grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox}'	#use colors and don't search in the repo-dirs
 alias grepdir='grep -r'	#search a string (1st arg) in all files in a dir (2nd arg)
 
+#Version control aliases
 alias grmold='git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d'	#deletes all merged branches except master, develop and dev
 alias gblame='git blame -b -w'	#show changes in a file	(1st arg)
 alias gcom='git commit -a -m'	#commit with a one-line message (args)
@@ -29,14 +31,26 @@ alias gtinylog='git log --oneline --decorate --all --graph --date=short'	#short 
 alias gfix='git mergetool --tool=vimdiff'	#fix merge conflicts
 alias gundo='git reset --hard HEAD~'	#remove last commit
 alias gonline='git push --set-upstream origin $(git_current_branch)'	#Copy the branch to the origin (github/gitlab)
+##Change GITHUBUSER and GITLABUSER to use the aliases below
+GITHUBUSER=your_github_username
+GITLABUSER=your_gitlab_username
+alias ghremadd='git remote add github git@github.com:${GITHUBUSER}/${PWD##*/}.git'	#adds a remote called github pointing to the repo on github
+alias glremadd='git remote add github git@gitlab.com:${GITLABUSER}/${PWD##*/}.git'	#adds a remote called github pointing to the repo on gitlab
+alias ghlremadd='git remote add github git@github.com:${GITHUBUSER}/${PWD##*/}.git ; git remote add github git@gitlab.com:${GITLABUSER}/${PWD##*/}.git'	#same as above for both github and gitlab
+alias ghpush='git push --set-upstream github $(git_current_branch)'	#create/update the current branch on github
+alias glpush='git push --set-upstream gitlab $(git_current_branch)'	#create/update the current branch to gitlab
+alias ghlpush='git push --set-upstream github $(git_current_branch) ; git push --set-upstream gitlab $(git_current_branch)'	#same as above for both github and gitlab
 
+#Fileinfo aliases
 alias ls='ls --color=auto'	#list files with colors
 alias la='ls -lA'	#list files with full info
 
+#User switching aliases
 alias become='sudo -i -u'	#become another user (1st arg)
 alias su="sudo -i -u root"	#become root
 alias root='sudo $(fc -ln -1)'	#run the previous command as root
 
+#Other aliases
 alias mkdir='mkdir -p'	#create dir (1st arg) and it's parents when they are not available
 
 #turn the touchpad of your laptop on/off, might not work everywhere. xinput and perl need to be installed
