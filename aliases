@@ -50,6 +50,18 @@ alias become='sudo -i -u'	#become another user (1st arg)
 alias su="sudo -i -u root"	#become root
 alias root='sudo $(fc -ln -1)'	#run the previous command as root
 
+#Commands to always run as root
+alias apt-get='sudo apt-get'
+alias apt='sudo apt'
+alias aptitude='sudo aptitude'
+
+#Check logs
+alias logssh='cat /var/log/auth.log{,.1} | grep ssh | grep opened'	#show recent sshlogins
+alias logsall='journalctl -n 500000 -f --no-hostname'	#print the 500000 latest systemd loglines and keep following them
+alias logstoday='journalctl -S=today -f --no-hostname'	#print all systemd loglines since midnight and keep  following them
+alias logservice='journalctl -n 500000 -f --no-hostname -u '	#print the 500000 latest systemd loglines about the service provided as argument
+alias logdocker='docker logs'	# print everything send to STDOUT and STDERR about the container providid as argument
+
 #Other aliases
 alias mkdir='mkdir -p'	#create dir (1st arg) and it's parents when they are not available
 
