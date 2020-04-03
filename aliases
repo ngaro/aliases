@@ -73,3 +73,10 @@ alias touchpadoff='xinput list | perl -ne '\''system $_ if(s/.*touchpad.*id=(\d+
 alias tor='docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -v /dev/snd:/dev/snd -v /dev/shm:/dev/shm -v /etc/machine-id:/etc/machine-id:ro -e DISPLAY=unix:0 -v ~/Downloads:/usr/local/bin/Browser/Downloads --name tor-browser jess/tor-browser'	#launches tor browser, downloads will be saved in in ~/Downloads.
 alias dockx='docker run --rm -d -v /tmp/.X11-unix:/tmp/.X11-unix -v /dev/snd:/dev/snd -v /dev/shm:/dev/shm -e DISPLAY=unix:0'	#run a dockercontainer with gui based on a image (1st arg), the following args to run a specific command
 alias docki='docker run --rm -it'	#run a interactive container based on a image (1st arg), the following args can be given to run a specific command
+function dockdev() {	#Develop Dockerfile
+	local name=$1 ; shift 1;
+	vim Dockerfile && # Open the dockerfile to edit it
+	docker build -t $name . &&	# Build the image and give it the name given as the 1st arg
+	docker run --rm -d -v /tmp/.X11-unix:/tmp/.X11-unix -v /dev/snd:/dev/snd -v /dev/shm:/dev/shm -e DISPLAY=unix:0 --name dev_$name $name $@ # Run it as testcontainer with the same name as the image preceded by dev_
+	# The test container has been given X11 and shell support, commands to be ran can be given as extra args
+}
