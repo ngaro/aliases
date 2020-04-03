@@ -52,5 +52,5 @@ If you are not 100% sure that your aliases will all be added send them as sepera
 ### Gitlab users
 
 Everything in this readme still holds, but:
-- You have replace *github* by *gitlab* everywhere
-- The button *Compare and send pull request* is named "Create merge request"
+- You have to replace *github* by *gitlab* everywhere
+- The button *Compare and send pull request* is named *Create merge request*
