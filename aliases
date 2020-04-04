@@ -35,8 +35,8 @@ alias gbl='git blame -b -w'	#show changes in a file	(1st arg)
 alias gcomm='git commit -a -m'	#commit changes with a one-line message (given as args between quotes)
 alias gcom='git commit -a -v'	#commit a change
 alias glog='git log --stat --graph --decorate --all'	#log with messages of all branches and how they are related
-alias gdifflog='git log --stat --graph --decorate --all -p'	#log with messages of all branches and how they are related and the changes in each commit
-alias gtinylog='git log --oneline --decorate --all --graph --date=short'	#short overview of the git log
+alias glogd='git log --stat --graph --decorate --all -p'	#log with messages of all branches and how they are related and the changes in each commit
+alias glogo='git log --oneline --decorate --all --graph --date=short'	#short overview of the git log
 alias gm='git merge'	#merge a branch given as arg into the current branch
 alias ghm='git merge github/master'	#merge the master branch from the remote github into the current branch
 alias glm='git merge gitlab/master'	#merge the master branch from the remote gitlab into the current branch
