@@ -64,6 +64,7 @@ alias logdocker='docker logs'	# print everything send to STDOUT and STDERR about
 
 #Other aliases
 alias mkdir='mkdir -p'	#create dir (1st arg) and it's parents when they are not available
+alias python='python3'	#specify a specific version of python (which is 3 in this case)
 
 #turn the touchpad of your laptop on/off, might not work everywhere. xinput and perl need to be installed
 alias touchpadon='xinput list | perl -ne '\''system $_ if(s/.*touchpad.*id=(\d+).*/xinput --enable $1/i)'\'
