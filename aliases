@@ -80,3 +80,6 @@ function dockdev() {	#Develop Dockerfile
 	docker run --rm -it -v /tmp/.X11-unix:/tmp/.X11-unix -v /dev/snd:/dev/snd -v /dev/shm:/dev/shm -e DISPLAY=unix:0 --name dev_$name $name $@ # Run it as testcontainer with the same name as the image preceded by dev_
 	# The test container has been given X11 and shell support, commands to be ran can be given as extra args
 }
+
+#debianbased
+function indeb() { dpkg -S $(realpath $(which $1)) } #Shows the .deb package that installed the command given as arg
