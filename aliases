@@ -21,10 +21,10 @@ alias grep='grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox}'
 alias grepdir='grep -r'	#search a string (1st arg) in all files in a dir (2nd arg)
 
 #Version control aliases
-alias gco='git checkout'
-alias gcob='git checkout -b'
-alias gcp='git cherry-pick'
-alias gd='git diff'
+alias gco='git checkout'	#switch to the branch given as arg
+alias gcob='git checkout -b'	#create and switch to the branch given as arg
+alias gcp='git cherry-pick'	#add a commit given as arg to the current branch
+alias gd='git diff'	#show the differences between states, see 'man git-diff' about usage
 alias grmold='git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d'	#deletes all merged branches except master, develop and dev
 alias gblame='git blame -b -w'	#show changes in a file	(1st arg)
 alias gcomm='git commit -a -m'	#commit with a one-line message (args)
