@@ -23,8 +23,8 @@ alias grepdir='grep -r'	#search a string (1st arg) in all files in a dir (2nd ar
 #Version control aliases
 alias grmold='git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d'	#deletes all merged branches except master, develop and dev
 alias gblame='git blame -b -w'	#show changes in a file	(1st arg)
-alias gcom='git commit -a -m'	#commit with a one-line message (args)
-alias gcomm='git commit -a -v'	#commit
+alias gcomm='git commit -a -m'	#commit with a one-line message (args)
+alias gcom='git commit -a -v'	#commit
 alias glog='git log --stat --graph --decorate --all'	#log with messages of all branches and how they are related
 alias gdifflog='git log --stat --graph --decorate --all -p'	#log with messages of all branches and how they are related and the changes in each commit
 alias gtinylog='git log --oneline --decorate --all --graph --date=short'	#short overview of the git log
