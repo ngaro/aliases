@@ -34,12 +34,15 @@ alias gdifflog='git log --stat --graph --decorate --all -p'	#log with messages o
 alias gtinylog='git log --oneline --decorate --all --graph --date=short'	#short overview of the git log
 alias gfix='git mergetool --tool=vimdiff'	#fix merge conflicts
 alias gundo='git reset --hard HEAD~'	#remove last commit
+alias gfa='git fetch --all'	#fetch new data from remotes
 ##Change GITHUBUSER and GITLABUSER to use the aliases below
 GITHUBUSER=your_github_username
 GITLABUSER=your_gitlab_username
 alias ghremadd='git remote add github git@github.com:${GITHUBUSER}/${PWD##*/}.git'	#adds a remote called github pointing to the repo on github
 alias glremadd='git remote add gitlab git@gitlab.com:${GITLABUSER}/${PWD##*/}.git'	#adds a remote called gitlab pointing to the repo on gitlab
-alias ghlremadd='git remote add github git@github.com:${GITHUBUSER}/${PWD##*/}.git ; git remote add gitlab git@gitlab.com:${GITLABUSER}/${PWD##*/}.git'	#same as above for both github and gitlab
+alias gcl='git clone'
+func gclh() { git clone git@github.com:$GITHUBUSER/$1.git && cd $1 && git remote rm origin && ghremadd && gfa }	#Clone your github repo given as arg. This line needs to be placed after the ghremadd and gfa aliasses
+func gcll() { git clone git@gitlab.com:$GITLABUSER/$1.git && cd $1 && git remote rm origin && glremadd && gfa }	#Clone your gitlab repo given as arg. This line needs to be placed after the glremadd and gfa aliasses
 alias ghpush='git push --set-upstream github ${$(git symbolic-ref --quiet HEAD)#refs/heads/}'	#create/update the current branch on github
 alias glpush='git push --set-upstream gitlab ${$(git symbolic-ref --quiet HEAD)#refs/heads/}'	#create/update the current branch to gitlab
 func gpush() { for i in $(git remote show | grep -iv upstream ) ; do git push --set-upstream $i ${$(git symbolic-ref --quiet HEAD)#refs/heads/} ; done }	#create/update the branch on all remotes excepted upstream
