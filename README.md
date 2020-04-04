@@ -8,7 +8,7 @@ A list of aliases and functions that you can use in bash, zsh, ...
 - Change the file aliases  there to your likings and run `git commit -v -a -m "My aliases and functions"`
 - Place your version online: `git push --set-upstream origin myownversion`
 - Add my repo as upstream: `git remote add upstream https://github.com/ngaro/aliases.git`
-- Place the line `source /PATH_OF_THE_REPO/aliases` at the end of your `.bashrc` (or `.zshrc` when using zsh)
+- Place the line `source /PATH_OF_THE_REPO/aliases/aliases` at the end of your `.bashrc` (or `.zshrc` when using zsh)
 
 ### Using the same aliases and functions on all your systems:
 
