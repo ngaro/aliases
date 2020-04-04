@@ -36,6 +36,12 @@ alias grmold='git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(mas
 alias gbl='git blame -b -w'	#show changes in a file	(1st arg)
 alias gcomm='git commit -a -m'	#commit changes with a one-line message (given as args between quotes)
 alias gcom='git commit -a -v'	#commit a change
+function gcomb() {	#commit a change on multiple branches (given as args) and jump back to the original
+	local currentbranch=${$(git symbolic-ref --quiet HEAD)#refs/heads/} ; local branchA=$1 ; shift 1
+	git stash push && git checkout $branchA && git stash pop && git commit -a -v || return 1
+	for i in $@ ; do git checkout $i && git cherry-pick $currentbranch || echo "Committing on $i failed" ; done
+	git checkout $currentbranch
+}
 alias glog='git log --stat --graph --decorate --all'	#log with messages of all branches and how they are related
 alias glogd='git log --stat --graph --decorate --all -p'	#log with messages of all branches and how they are related and the changes in each commit
 alias glogo='git log --oneline --decorate --all --graph --date=short'	#short overview of the git log
