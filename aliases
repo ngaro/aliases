@@ -34,7 +34,6 @@ alias gdifflog='git log --stat --graph --decorate --all -p'	#log with messages o
 alias gtinylog='git log --oneline --decorate --all --graph --date=short'	#short overview of the git log
 alias gfix='git mergetool --tool=vimdiff'	#fix merge conflicts
 alias gundo='git reset --hard HEAD~'	#remove last commit
-alias gonline='git push --set-upstream origin ${$(git symbolic-ref --quiet HEAD)#refs/heads/}'	#Copy the branch to the origin (github/gitlab)
 ##Change GITHUBUSER and GITLABUSER to use the aliases below
 GITHUBUSER=your_github_username
 GITLABUSER=your_gitlab_username
