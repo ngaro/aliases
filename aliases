@@ -96,3 +96,6 @@ alias psmine='ps --forest -o ppid,pid,tty,pcpu,size,stime,args -u $(whoami)'	#sh
 function pstreet() { pstree -UahpstS $@ | less }	#show browsable process tree and include threads, optional args can be given to only show childs of a specific pid or processes from a user (see 'man pstree')
 function fun_pstree() { pstree -UahpsTS $@ | less }	#show browsable process tree, optional args can be given to only show childs of a specific pid or processes from a user (see 'man pstree')
 alias pstree='fun_pstree'	#alias for fun_pstree (make sure this line is never placed before other lines containing the command 'pstree')
+
+#Development
+alias gccdebug="gcc -O0 -ggdb -Wall -Wextra -pedantic"
