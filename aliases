@@ -86,5 +86,13 @@ function dockdev() {	#Develop Dockerfile
 	# The test container has been given X11 and shell support, commands to be ran can be given as extra args
 }
 
-#debianbased
+#Debian-based (e.g. Ubuntu)
 function indeb() { dpkg -S $(realpath $(which $1)) } #Shows the .deb package that installed the command given as arg
+
+#Processes info
+alias psall='ps --forest -eo user,ppid,pid,tty,pcpu,size,stime,args'	#show lots of info about all process while trying to maintain a tree
+alias psmine='ps --forest -o ppid,pid,tty,pcpu,size,stime,args -u $(whoami)'	#show lots of info about all your process while trying to maintain a tree
+##pstree and pstreet below show less info but are more readable. The name 'fun_pstree' is needed to fix infinite loops. You can just call 'pstree' for the same functionality
+function pstreet() { pstree -UahpstS $@ | less }	#show browsable process tree and include threads, optional args can be given to only show childs of a specific pid or processes from a user (see 'man pstree')
+function fun_pstree() { pstree -UahpsTS $@ | less }	#show browsable process tree, optional args can be given to only show childs of a specific pid or processes from a user (see 'man pstree')
+alias pstree='fun_pstree'	#alias for fun_pstree (make sure this line is never placed before other lines containing the command 'pstree')
