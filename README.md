@@ -30,7 +30,7 @@ You can change everything that has been done in `aliases` from within `personal_
 ### Suggesting new aliases and functions to the world
 
  - Create a branch for a pullrequest: `git checkout -b pr1`
- - Add your new stuff correctly (see below) to `aliases` and run `git commit -v -a m "names of the aliases and functions" && git push --set-upstream origin`
+ - Add your new stuff correctly (see below) to `aliases` and run:<br>`git commit -v -a m "names of the aliases and functions" && git push --set-upstream origin`
  - Also add your new stuff to `personal_aliases` so that you don't have to wait until the pull request has been accepted
  - Put the branch online on your fork: `git push --set-upstream origin pr1`
  - Press *Compare and send pull request* on github
