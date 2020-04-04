@@ -43,7 +43,7 @@ alias glremadd='git remote add gitlab git@gitlab.com:${GITLABUSER}/${PWD##*/}.gi
 alias ghlremadd='git remote add github git@github.com:${GITHUBUSER}/${PWD##*/}.git ; git remote add gitlab git@gitlab.com:${GITLABUSER}/${PWD##*/}.git'	#same as above for both github and gitlab
 alias ghpush='git push --set-upstream github ${$(git symbolic-ref --quiet HEAD)#refs/heads/}'	#create/update the current branch on github
 alias glpush='git push --set-upstream gitlab ${$(git symbolic-ref --quiet HEAD)#refs/heads/}'	#create/update the current branch to gitlab
-alias ghlpush='git push --set-upstream github ${$(git symbolic-ref --quiet HEAD)#refs/heads/} ; git push --set-upstream gitlab ${$(git symbolic-ref --quiet HEAD)#refs/heads/}'	#same as above for both github and gitlab
+func gpush() { for i in $(git remote show | grep -iv upstream ) ; do git push --set-upstream $i ${$(git symbolic-ref --quiet HEAD)#refs/heads/} ; done }	#create/update the branch on all remotes excepted upstream
 
 #Fileinfo aliases
 alias ls='ls --color=auto'	#list files with colors
