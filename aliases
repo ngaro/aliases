@@ -21,48 +21,53 @@ alias grep='grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox}'
 alias grepdir='grep -r'	#search a string (1st arg) in all files in a dir (2nd arg)
 
 #Version control aliases
-alias gbd='git branch -d'	#delete a branch
-alias gbdf='git branch -D'	#delete a branch even if it's not merged
-alias gco='git checkout'	#switch to the branch given as arg
-alias gcob='git checkout -b'	#create and switch to the branch given as arg
-alias gcp='git cherry-pick'	#add a commit given as arg to the current branch
-alias gd='git diff'	#show the differences between states, see 'man git-diff' about usage
-alias gstpu='git stash push'	#stash the current changes
-alias gstpum='git stash push -m'	#stash the current changes and give them a title (given as arg between quotes)
-alias gstls='git stash list'	#show a list of the stash changes
-alias gstrm='git stash remove'	#remove the latest stashed change
-alias gstpop='git stash pop'	#use the latest stashed change
-alias grmold='git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d'	#deletes all merged branches except master, develop and dev
-alias gbl='git blame -b -w'	#show changes in a file	(1st arg)
-alias gcomm='git commit -a -m'	#commit changes with a one-line message (given as args between quotes)
-alias gcom='git commit -a -v'	#commit a change
-function gcomb() {	#commit a change on multiple branches (given as args) and jump back to the original
+alias gitadd='git add'	#add a existing file given as arg to the repo
+alias gitrm='git rm'	#remove a file, both from the repo and locally
+func gitign(){ echo $1 >> .gitignore }	#remove a file from repo but keep it locally
+alias gitbrm='git branch -d'	#delete a branch given as arg
+alias gitbrmf='git branch -D'	#delete a branch given as arg even if it's not merged
+alias gitbrrmm='git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d'	#deletes all merged branches except master, develop and dev
+alias gitbrnew='git checkout -b'	#create and switch to the branch given as arg
+alias gitch='git checkout'	#switch to the branch given as arg
+alias gitcp='git cherry-pick'	#add a commit given as arg to the current branch
+alias gitd='git diff'	#show the differences between states, see 'man git-diff' about usage
+alias gitspush='git stash push'	#stash the current changes
+alias gitspushm='git stash push -m'	#stash the current changes and give them a title (given as arg between quotes)
+alias gitsls='git stash list'	#show a list of the stash changes
+alias gitsrm='git stash remove'	#remove the latest stashed change
+alias gitspop='git stash pop'	#use the latest stashed change
+alias gitbl='git blame -b -w'	#show changes in a file	(1st arg)
+alias gitcomo='git commit -a -m'	#commit changes with a one-line message (given as args between quotes)
+alias gitcom='git commit -a -v'	#commit changes
+function gitcomb() {	#commit changes on multiple branches (given as args) and jump back to the original
 	local currentbranch=${$(git symbolic-ref --quiet HEAD)#refs/heads/} ; local branchA=$1 ; shift 1
 	git stash push && git checkout $branchA && git stash pop && git commit -a -v || return 1
 	for i in $@ ; do git checkout $i && git cherry-pick $currentbranch || echo "Committing on $i failed" ; done
 	git checkout $currentbranch
 }
-alias glog='git log --stat --graph --decorate --all'	#log with messages of all branches and how they are related
-alias glogd='git log --stat --graph --decorate --all -p'	#log with messages of all branches and how they are related and the changes in each commit
-alias glogo='git log --oneline --decorate --all --graph --date=short'	#short overview of the git log
-alias gm='git merge'	#merge a branch given as arg into the current branch
-alias ghm='git merge github/master'	#merge the master branch from the remote github into the current branch
-alias glm='git merge gitlab/master'	#merge the master branch from the remote gitlab into the current branch
-alias gum='git merge upstream/master'	#merge the master branch from the remote upstream into the current branch
-alias gfix='git mergetool --tool=vimdiff'	#fix merge conflicts
-alias gundo='git reset --hard HEAD~'	#remove last commit
-alias gfa='git fetch --all'	#fetch new data from remotes
+alias gitlog='git log --stat --graph --decorate --all'	#log with messages of all branches and how they are related
+alias gitlogd='git log --stat --graph --decorate --all -p'	#log with messages of all branches and how they are related and the changes in each commit
+alias gitlogo='git log --oneline --decorate --all --graph --date=short'	#short overview of the git log
+alias gitm='git merge'	#merge a branch given as arg into the current branch
+alias gitmgh='git merge github/master'	#merge the master branch from the remote github into the current branch
+alias gitmgl='git merge gitlab/master'	#merge the master branch from the remote gitlab into the current branch
+alias gitmup='git merge upstream/master'	#merge the master branch from the remote upstream into the current branch
+alias gitfix='git mergetool --tool=vimdiff'	#fix merge conflicts
+alias gitundo='git reset --hard HEAD~'	#remove last commit
+alias gitfa='git fetch --all'	#fetch new data from remotes
 ##Change GITHUBUSER and GITLABUSER to use the aliases below
 GITHUBUSER=your_github_username
 GITLABUSER=your_gitlab_username
-alias ghremadd='git remote add github git@github.com:${GITHUBUSER}/${PWD##*/}.git'	#adds a remote called github pointing to the repo on github
-alias glremadd='git remote add gitlab git@gitlab.com:${GITLABUSER}/${PWD##*/}.git'	#adds a remote called gitlab pointing to the repo on gitlab
-alias gcl='git clone'
-func gclh() { git clone git@github.com:$GITHUBUSER/$1.git && cd $1 && git remote rm origin && ghremadd && gfa }	#Clone your github repo given as arg. This line needs to be placed after the ghremadd and gfa aliasses
-func gcll() { git clone git@gitlab.com:$GITLABUSER/$1.git && cd $1 && git remote rm origin && glremadd && gfa }	#Clone your gitlab repo given as arg. This line needs to be placed after the glremadd and gfa aliasses
-alias ghpush='git push --set-upstream github ${$(git symbolic-ref --quiet HEAD)#refs/heads/}'	#create/update the current branch on github
-alias glpush='git push --set-upstream gitlab ${$(git symbolic-ref --quiet HEAD)#refs/heads/}'	#create/update the current branch to gitlab
-func gpush() { for i in $(git remote show | grep -iv upstream ) ; do git push --set-upstream $i ${$(git symbolic-ref --quiet HEAD)#refs/heads/} ; done }	#create/update the branch on all remotes excepted upstream
+alias gitremaddgh='git remote add github git@github.com:${GITHUBUSER}/${PWD##*/}.git && git fetch --all'	#adds a remote called github pointing to the repo on github and fetch it
+alias gitremaddgl='git remote add gitlab git@gitlab.com:${GITLABUSER}/${PWD##*/}.git && git fetch --al'	#adds a remote called gitlab pointing to the repo on gitlab and fetch it
+function gitremaddup() { git remote add upstream $1 && git fetch --all }	#adds a remote given as arg called upstream and fetch it
+alias gitremrm='git remote rm'	#remove a remote given as arg
+alias gitcl='git clone'	#clone a repo given as arg
+func gitclgh() { git clone git@github.com:$GITHUBUSER/$1.git && cd $1 && gitremrm origin && ghremadd && gfa }	#Clone your github repo given as arg. This line needs to be placed after the ghremadd and gfa aliasses
+func gitclgl() { git clone git@gitlab.com:$GITLABUSER/$1.git && cd $1 && gitremrm origin && glremadd && gfa }	#Clone your gitlab repo given as arg. This line needs to be placed after the glremadd and gfa aliasses
+alias gitpushh='git push --set-upstream github ${$(git symbolic-ref --quiet HEAD)#refs/heads/}'	#create/update the current branch on github
+alias gitpushl='git push --set-upstream gitlab ${$(git symbolic-ref --quiet HEAD)#refs/heads/}'	#create/update the current branch to gitlab
+func gitpush() { for i in $(git remote show | grep -iv upstream ) ; do git push --set-upstream $i ${$(git symbolic-ref --quiet HEAD)#refs/heads/} ; done }	#create/update the branch on all remotes excepted upstream
 
 #Fileinfo aliases
 alias ls='ls --color=auto'	#list files with colors
@@ -95,8 +100,8 @@ alias touchpadoff='xinput list | perl -ne '\''system $_ if(s/.*touchpad.*id=(\d+
 
 #docker
 alias tor='docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -v /dev/snd:/dev/snd -v /dev/shm:/dev/shm -v /etc/machine-id:/etc/machine-id:ro -e DISPLAY=unix:0 -v ~/Downloads:/usr/local/bin/Browser/Downloads --name tor-browser jess/tor-browser'	#launches tor browser, downloads will be saved in in ~/Downloads.
-alias dockx='docker run --rm -d -v /tmp/.X11-unix:/tmp/.X11-unix -v /dev/snd:/dev/snd -v /dev/shm:/dev/shm -e DISPLAY=unix:0'	#run a dockercontainer with gui based on a image (1st arg), the following args to run a specific command
-alias docki='docker run --rm -it'	#run a interactive container based on a image (1st arg), the following args can be given to run a specific command
+alias dockerx='docker run --rm -d -v /tmp/.X11-unix:/tmp/.X11-unix -v /dev/snd:/dev/snd -v /dev/shm:/dev/shm -e DISPLAY=unix:0'	#run a dockercontainer with gui based on a image (1st arg), the following args to run a specific command
+alias dockeri='docker run --rm -it'	#run a interactive container based on a image (1st arg), the following args can be given to run a specific command
 function dockerdev() {
 	#1) open Dockerfile in the current directory in vim (to change it)
 	#2) after closing it use it to build a image named after the current directory. If the 1st arg is "-n" the 2nd arg will be used as name instead
