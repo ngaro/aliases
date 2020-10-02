@@ -3,54 +3,56 @@ A list of aliases and functions that you can use in bash, zsh, ...
 
 ## Suggested installation
 
-*   Fork this repo and clone it on your system. (We'll assume that it ends up at `/home/user/yourrepo`)
-*   Create a empty file `personal_aliases` in `/home/user/yourrepo`. You don't have to track that file in git.
-*   Add my repo as upstream:<br>`cd /home/user/yourrepo && git remote add upstream https://github.com/ngaro/aliases.git`
-*   Add the line `export ALIASREPO=/home/user/yourrepo ; source $ALIASREPO/aliases`<br>at the end of the file `.bashrc` (or `.zshrc` when using zsh) in your homedir
+*   Fork this repo and clone it on your system
+*   Create a 2nd branch for yourself: `git checkout -b myownversion`
+*   Change the file `aliases` to your likings and run `git commit -v -a -m "My aliases and functions"`
+*   Place your version online: `git push --set-upstream origin myownversion`
+*   Add my repo as upstream: `git remote add upstream https://github.com/ngaro/aliases.git`
+*   Place the line `source /PATH_OF_THE_REPO/aliases` at the end of your `.bashrc` (or `.zshrc` when using zsh)
 
-Don't try to do it directly with `source /home/user/yourrepo/aliases` or your personal settings won't be parsed
+## Using the same aliases and functions on all your systems
 
-## Adding/changing/removing aliases and functions
+*   Clone your repo: `git clone git@github.com:YOURGITUSERNAME/aliases.git`
+*   Switch the branch to your own version of the aliases and functions: `git checkout myownversion`
+*   Repeat the last 3 steps from *Suggested installation*
 
-You can do this by adding and changing the file `personal_aliases`<br>
-Do **not** do this in the `aliases` file otherwise checking for new stuff won't be possible<br>
-You can change everything that has been done in `aliases` from within `personal_aliases` so you can:
-*   Remove vars, aliases and functions with respectively `unset SOMEVAR`, `unalias somealias` and `unset -f somefunction`
-*   Add or overwrite variables with `SOMEVAR=some_new_value`<br>(If you use github and/or gitlab you'll already want to overwrite `GITHUBUSER` and/or `GITLABUSER`)
+## Checking for new aliases and functions added by other users
+
+*   From time to time run `git fetch --all ; git diff master upstream/master`
+*   Add the ones you like to your own aliases file (see *Adding new aliases and functions only for yourself*)
+*   Update your master branch: `git checkout master ; git merge upstream/master ; git checkout myownversion`
+
+## Adding new aliases and functions
+
+### Syntax
+You can:
+*   Turn off vars, aliases and functions with respectively `unset SOMEVAR`, `unalias somealias` and `unset -f somefunction`
+*   Add or overwrite variables with `SOMEVAR=some_new_value`<br>2 Variables that you probably already want to change: `GITHUBUSER` and `GITLABUSER`
 *   Add or overwrite aliases with `alias somealias='some_new_command'`
 *   Add or overwrite functions with `function somefunction() { some; new; code; }`
 
-## Checking for new aliases and functions
+### Adding them
+*   Put them in your aliases file and run `git commit -v -a -m "Description of the changes" ; git push`
+*   Run `git fetch --all ; git merge origin/myversion` on all your other systems
 
-*   From time to time see what has been changed: `git fetch --all ; git diff upstream/master`
-*   Use `personal_aliases` to unset new things that you don't like. Do **not** change the file `aliases` manually...
-*   Run `git merge upstream/master` to update the `aliases` file
+### Proposing them to other users
 
-## Suggesting new aliases and functions to the world
-
-*   Create a branch for a pullrequest: `git checkout -b pr1`
-*   Add your new stuff correctly (see below) to `aliases` and run:<br>`git commit -v -a m "names of the aliases and functions" && git push --set-upstream origin`
-*   Also add your new stuff to `personal_aliases` so that you don't have to wait until the pull request has been accepted
-*   Put the branch online on your fork: `git push --set-upstream origin pr1`
+*   Create a branch for a pullrequest: `git checkout master ; git checkout -b pr1`
+*   Describe the alias(es) correctly and run `git commit -v -a m "names of the aliases and functions" ; git push`<br>Make sure that you mention:
+**   What your aliases and functions do
+**   What arguments can/should be given to the alias (if this is the case)
+**   The shells(s) that you've tested them in
+**   Extra software needed (if this is the case)
+**   Anything the user should be careful for (if this is the case)
+*   Put the branch online: `git push --set-upstream origin pr1`
 *   Press *Compare and send pull request* on github
-*   Switch back to your own branch: `git checkout master`.
- 
-After the pull request has been close/merged you can remove the `pr1` branch on github and on your system.<br>
-You can use `git branch -D pr1` on your system and the webbased interface on github.<br>
-If you want to send extra pr's before your others have been closed/merged use the names `pr2`, `pr3`, ...
+*   Switch back to your own branch: `git checkout myversion`
 
-### Adding aliases and functions correctly
-
-Please make sure to mention:
-*   What your aliases and functions do
-*   What arguments can/should be given (if this is the case)
-*   The shells(s) that you've tested them in
-*   Extra software needed (if this is the case)
-*   Anything the user should be careful for (if this is the case)
+If you want to send extra pr's before your others have been closed/merged, use the same procedure but use the names `pr2`, `pr3`, ...
 
 If you are not 100% sure that your aliases and functions will all be added send them as seperate pull-requests.
 
-## Gitlab users
+### Gitlab users
 
 Everything in this readme still holds, but:
 *   You have to replace *github* by *gitlab* everywhere
