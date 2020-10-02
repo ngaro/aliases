@@ -129,5 +129,3 @@ alias pstree='fun_pstree'	#alias for fun_pstree (make sure this line is never pl
 
 #Development
 alias gccdebug="gcc -O0 -ggdb -Wall -Wextra -pedantic"
-
-source $ALIASREPO/personal_aliases
