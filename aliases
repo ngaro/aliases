@@ -129,3 +129,6 @@ alias pstree='fun_pstree'	#alias for fun_pstree (make sure this line is never pl
 
 #Development
 alias gccdebug="gcc -O0 -ggdb -Wall -Wextra -pedantic"
+
+function ipmiproxy() ( sudo ssh -L 5900:$2:5900 -L 443:$2:443 -L 80:$2:80 $1 )
+alias randomfilm='mount /mnt/targasmb ; cd /mnt/targasmb/filmen ;  ls | perl -e "\$i=0; while(<STDIN>) { unless(/srt\$/i) { chomp; push @filmen,\$_; \$i++; } }; \$film=\$filmen[int(rand(\$i))]; print \"###\$film###\\n\"; sleep 3; system \"mplayer \\\"\$film\\\"\""'	#Play a random movie in /mnt/targasmb that might not be mounted
